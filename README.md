@@ -1,4 +1,4 @@
-\|/My repository for a problem book implementation\|/
+|\|/My repository for a problem book implementation\|/|
 ---
 Greetings, my name is Vadim Ryabichenko.
 
