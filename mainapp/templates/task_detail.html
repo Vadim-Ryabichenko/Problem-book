@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<div class="reg">
+<h1>{{task.status}}</h1>
+<h3>{{task.text}}</h3>
+<h2>Creator: {{task.creator}}</h2>
+<h2>Executor: {{task.executor}}</h2>
+<h3>Start: {{task.create_at}}</h3>
+</div>
+{% endblock %}

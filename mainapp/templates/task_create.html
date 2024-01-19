@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class = "reg">
+<h1>Create new task</h1>
+<h3>Please, create new task using the following form:</h3>
+<form method="post" action="{% url 'task_create' %}">
+    {% csrf_token %}
+    <h3>{{ form.as_p }}</h3>
+    <button type="submit">*Add task*</button>
+</form>
+</div>
+{% endblock %}

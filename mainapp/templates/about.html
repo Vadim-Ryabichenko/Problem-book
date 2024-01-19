@@ -1,0 +1,46 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+      <h2 style="text-align: center;">{{ message }}</h2>
+    {% endfor %}
+{% endif %}
+<div class="reg">
+<h1>The idea of the site and a few other important points are described here</h1>
+<h2>This site was developed by one person, Vadim Ryabichenko, it provides the opportunity to transfer the analysis and analysis of ongoing tasks to an online environment. 
+This makes it possible to conveniently plan schedules for delivering product demonstrations at different stages to the customer, where employees are scattered around the world.</h2>
+</div>
+<br>
+<hr>
+<div class="contrrainer">
+    <div class = "cont">
+    <ul>
+        <h2>Contact Information</h2>
+        <li><h2>Contact number: 0934586217</h2></li>
+        <li><h2>Administrator nickname: Remby</h2></li>
+        <li><h2>Access: free, registration required</h2></li>
+        <li><h2>Region: Ukraine</h2></li>
+      </ul>
+    </div>
+    <div class = "inf">
+      <h2>Creator</h2>
+      <article class="item">
+        <div class="photo">
+          <img class="personPhoto" alt="" src="/static/css/popp.png">
+        </div>
+      </article>
+    </div>
+</div>
+<br>
+<h1 style="text-align: center;">Let’s get social</h1>
+<div style="display: flex; justify-content: center; align-items: center;">
+  <div class="social_instagram">
+    <a href="https://www.instagram.com/vremby_4595/" target="_blank"><i class="fa fa-instagram fa-2x"></i></a>
+  </div>
+  <div class="social_telegram">
+    <a href="https://t.me/VRem" target="_blank"><i class="fa fa-paper-plane fa-2x"></i></a>
+  </div>
+</div>
+{% endblock %}

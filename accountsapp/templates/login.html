@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class = "reg">
+    <h1>Log in to use the advanced functionality of the site</h1>
+    <h2>Please, sign in using the following form:</h2>
+<form method="post" action="{% url 'login_page' %}">
+    {% csrf_token %}
+    <h3>{{ form.as_p }}</h3>
+    <button type="submit">*Log in*</button>
+</form>
+<a href="{% url 'register_page' %}"><h3>If you haven`t an account, please register</h3></a>
+</div>
+{% endblock %}

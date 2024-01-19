@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+{% if messages %}
+    {% for message in messages %}
+      <h2 style="text-align: center;">{{ message }}</h2>
+    {% endfor %}
+{% endif %}
+<div class="welcome"><h1>Welcome to the assistant for step-by-step problem solving, everything you see in the pictures will be present in the functionality of this site</h1></div>
+<div class="carousel">
+  <div class="carousel-container">
+    <img src="/static/css/principle.png" alt="Cicles of task">
+    <img src="/static/css/rr-removebg-preview.png" alt="QA">
+    <img src="/static/css/done-removebg-preview.png" alt="DD">
+  </div>
+  <a class="prev" onclick="plusSlides(-1)">&#10094;</a>
+  <a class="next" onclick="plusSlides(1)">&#10095;</a>
+</div>
+{% endblock %}

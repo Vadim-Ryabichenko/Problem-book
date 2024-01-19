@@ -1,0 +1,138 @@
+{% extends 'base.html' %}
+
+
+{% block content %}
+<br>
+{% if messages %}
+    {% for message in messages %}
+      <h2 style="text-align: center;">{{ message }}</h2>
+    {% endfor %}
+{% endif %}
+<br>
+<div class="bord">
+<div class= "status">
+    <h1 style="text-align: center; text-decoration: underline;">New status</h1>
+    {% for task in task_list %}
+    {% if task.status == "New" %}
+    <h2>Creator: {{task.creator}}</h2>
+    <a href="{% url 'task_detail' pk=task.pk %}"><h3>{{task.text}}</h3></a>
+    {% if request.user.is_superuser or request.user == task.creator %}
+        <a href="{% url 'task_update' task.pk %}"><button>Update</button></a>
+        <form method="post" action="{% url 'task_delete' pk=task.pk %}">
+            {% csrf_token %}
+            <button>Delete</button>
+        </form>
+        {% endif %}
+        {% if request.user == task.creator %}
+        <form method="post" action="{% url 'upper_task_status' pk=task.pk %}">
+            {% csrf_token %}
+            <button>Move ---></button>
+          </form>
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>
+<div class= "status">
+    <h1 style="text-align: center; text-decoration: underline;">In progress status</h1>
+    {% for task in task_list %}
+    {% if task.status == "In progress" %}
+    <h2>Creator: {{task.creator}}</h2>
+    <a href="{% url 'task_detail' pk=task.pk %}"><h3>{{task.text}}</h3></a>
+    {% if request.user.is_superuser or request.user == task.creator %}
+        <a href="{% url 'task_update' task.pk %}"><button>Update</button></a>
+        <form method="post" action="{% url 'task_delete' pk=task.pk %}">
+            {% csrf_token %}
+            <button>Delete</button>
+        </form>
+        {% endif %}
+        {% if request.user == task.creator %}
+        <form method="post" action="{% url 'upper_task_status' pk=task.pk %}">
+            {% csrf_token %}
+            <button>Move ---></button>
+          </form>
+          <form method="post" action="{% url 'lower_task_status' pk=task.pk %}">
+            {% csrf_token %}
+            <button><--- Move</button>
+          </form>
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>
+<div class= "status">
+    <h1 style="text-align: center; text-decoration: underline;">In QA status</h1>
+    {% for task in task_list %}
+    {% if task.status == "In QA" %}
+    <h2>Creator: {{task.creator}}</h2>
+    <a href="{% url 'task_detail' pk=task.pk %}"><h3>{{task.text}}</h3></a>
+    {% if request.user.is_superuser or request.user == task.creator %}
+        <a href="{% url 'task_update' task.pk %}"><button>Update</button></a>
+        <form method="post" action="{% url 'task_delete' pk=task.pk %}">
+            {% csrf_token %}
+            <button>Delete</button>
+        </form>
+        {% endif %}
+        {% if request.user == task.creator %}
+        <form method="post" action="{% url 'upper_task_status' pk=task.pk %}">
+            {% csrf_token %}
+            <button>Move ---></button>
+          </form>
+          <form method="post" action="{% url 'lower_task_status' pk=task.pk %}">
+            {% csrf_token %}
+            <button><--- Move</button>
+          </form>
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>
+<div class= "status">
+    <h1 style="text-align: center; text-decoration: underline;">Ready status</h1>
+    {% for task in task_list %}
+    {% if task.status == "Ready" %}
+    <h2>Creator: {{task.creator}}</h2>
+    <a href="{% url 'task_detail' pk=task.pk %}"><h3>{{task.text}}</h3></a>
+    {% if request.user.is_superuser or request.user == task.creator %}
+        <a href="{% url 'task_update' task.pk %}"><button>Update</button></a>
+        <form method="post" action="{% url 'task_delete' pk=task.pk %}">
+            {% csrf_token %}
+            <button>Delete</button>
+        </form>
+        {% endif %}
+        {% if request.user.is_superuser %}
+        <form method="post" action="{% url 'upper_task_status' pk=task.pk %}">
+            {% csrf_token %}
+            <button>Move ---></button>
+          </form>
+        {% endif %}
+        {% if request.user == task.creator %}
+        <form method="post" action="{% url 'lower_task_status' pk=task.pk %}">
+            {% csrf_token %}
+            <button><--- Move</button>
+          </form>
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>
+<div class= "status">
+    <h1 style="text-align: center; text-decoration: underline;">Done status</h1>
+    {% for task in task_list %}
+    {% if task.status == "Done" %}
+    <h2>Creator: {{task.creator}}</h2>
+    <a href="{% url 'task_detail' pk=task.pk %}"><h3>{{task.text}}</h3></a>
+    {% if request.user.is_superuser or request.user == task.creator %}
+        <a href="{% url 'task_update' task.pk %}"><button>Update</button></a>
+        <form method="post" action="{% url 'task_delete' pk=task.pk %}">
+            {% csrf_token %}
+            <button>Delete</button>
+        </form>
+        {% endif %}
+        {% if request.user == task.creator %}
+        <form method="post" action="{% url 'lower_task_status' pk=task.pk %}">
+            {% csrf_token %}
+            <button><--- Move</button>
+          </form>
+        {% endif %}
+        {% endif %}
+    {% endfor %}
+</div>
+</div>
+{% endblock %}
