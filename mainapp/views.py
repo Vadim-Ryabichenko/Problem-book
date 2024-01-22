@@ -2,8 +2,9 @@ from .models import TaskCard
 from django.views.generic import TemplateView, ListView, View, CreateView, UpdateView, DeleteView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render, redirect
-from .forms import TaskCardForm
+from .forms import TaskCardForm, SetExecutorForm
 from django.urls import reverse
+from django.contrib.auth.models import User
 
 
 
@@ -95,3 +96,14 @@ class LowerStatusTaskCardView(View):
             task.status = 'Ready'
         task.save()
         return redirect('tasks')
+    
+
+class SetExecutorView(View):
+    template_name = 'tasks.html'
+
+    def post(self, request, pk):
+        task = get_object_or_404(TaskCard, pk=pk)
+        form = SetExecutorForm(request.POST, instance=task)
+        if form.is_valid():
+            form.save()
+        return render(request, self.template_name, {'form': form, 'task': task})

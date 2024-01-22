@@ -16,5 +16,5 @@ class AutoLogoutMiddleware:
                 logout(request)
                 messages.warning(request, 'You have been inactive for more than 1 minute. You have been automatically logged out')
         request.session['last_activity'] = timezone.now().isoformat()
-
         return response
+    

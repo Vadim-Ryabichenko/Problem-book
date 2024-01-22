@@ -1,4 +1,4 @@
-from .views import MainView, AboutView, TaskCardListView, TaskCardDetailView, TaskCardCreateView, TaskCardUpdateView, TaskCardDeleteView, UpperStatusTaskCardView, LowerStatusTaskCardView
+from .views import MainView, AboutView, TaskCardListView, TaskCardDetailView, TaskCardCreateView, TaskCardUpdateView, TaskCardDeleteView, UpperStatusTaskCardView, LowerStatusTaskCardView, SetExecutorView
 from django.urls import path
 
 
@@ -13,4 +13,5 @@ urlpatterns = [
     path('task/<int:pk>/delete/', TaskCardDeleteView.as_view(), name = 'task_delete'),
     path('tasks/<int:pk>/upper-status/', UpperStatusTaskCardView.as_view(), name='upper_task_status'),
     path('tasks/<int:pk>/lower-status/', LowerStatusTaskCardView.as_view(), name='lower_task_status'),
+    path('tasks/<int:pk>/set-executor/', SetExecutorView.as_view(), name='set_executor'),
 ]

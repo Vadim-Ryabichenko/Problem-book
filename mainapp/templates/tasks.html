@@ -23,6 +23,11 @@
             <button>Delete</button>
         </form>
         {% endif %}
+        <form method="post" action="{% url 'set_executor' pk=task.pk %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>Set Executor</button>
+          </form>
         {% if request.user == task.creator %}
         <form method="post" action="{% url 'upper_task_status' pk=task.pk %}">
             {% csrf_token %}
@@ -45,6 +50,11 @@
             <button>Delete</button>
         </form>
         {% endif %}
+        <form method="post" action="{% url 'set_executor' pk=task.pk %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>Set Executor</button>
+          </form>
         {% if request.user == task.creator %}
         <form method="post" action="{% url 'upper_task_status' pk=task.pk %}">
             {% csrf_token %}
@@ -71,6 +81,11 @@
             <button>Delete</button>
         </form>
         {% endif %}
+        <form method="post" action="{% url 'set_executor' pk=task.pk %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>Set Executor</button>
+          </form>
         {% if request.user == task.creator %}
         <form method="post" action="{% url 'upper_task_status' pk=task.pk %}">
             {% csrf_token %}
@@ -97,6 +112,11 @@
             <button>Delete</button>
         </form>
         {% endif %}
+        <form method="post" action="{% url 'set_executor' pk=task.pk %}">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button>Set Executor</button>
+          </form>
         {% if request.user.is_superuser %}
         <form method="post" action="{% url 'upper_task_status' pk=task.pk %}">
             {% csrf_token %}
@@ -125,7 +145,12 @@
             <button>Delete</button>
         </form>
         {% endif %}
-        {% if request.user == task.creator %}
+        <form method="post" action="{% url 'set_executor' pk=task.pk %}">
+          {% csrf_token %}
+          {{ form.executor }}
+          <input type="submit" value="Set executor">
+          </form>
+        {% if request.user.is_superuser or request.user == task.creator %}
         <form method="post" action="{% url 'lower_task_status' pk=task.pk %}">
             {% csrf_token %}
             <button><--- Move</button>
