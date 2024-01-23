@@ -270,3 +270,7 @@ hr:after {
   border: 2px solid #090807; 
   box-sizing: border-box;
 }
+
+.taskd {
+  background-color: #BFE2FF;
+}

@@ -4,7 +4,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import TaskCardForm, SetExecutorForm
 from django.urls import reverse
-from django.contrib.auth.models import User
+
 
 
 
@@ -21,6 +21,11 @@ class TaskCardListView(ListView):
     template_name = 'tasks.html'
     queryset = TaskCard.objects.all()
     context_object_name = 'task_list'
+
+    def get_context_data(self, **kwargs):
+        context = super(TaskCardListView, self).get_context_data(**kwargs)
+        context['form'] = SetExecutorForm(user=self.request.user)
+        return context
 
 
 class TaskCardDetailView(LoginRequiredMixin, View):
@@ -103,7 +108,8 @@ class SetExecutorView(View):
 
     def post(self, request, pk):
         task = get_object_or_404(TaskCard, pk=pk)
-        form = SetExecutorForm(request.POST, instance=task)
+        form = SetExecutorForm(request.user, request.POST, instance=task)
         if form.is_valid():
             form.save()
+            return redirect('task_detail', pk=task.pk)
         return render(request, self.template_name, {'form': form, 'task': task})

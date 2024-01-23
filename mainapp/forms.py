@@ -11,11 +11,16 @@ class TaskCardForm(forms.ModelForm):
 
 
 class SetExecutorForm(forms.ModelForm):
+    
     class Meta:
         model = TaskCard
         fields = ['executor'] 
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, user, *args, **kwargs):
         super(SetExecutorForm, self).__init__(*args, **kwargs)
-        self.fields['executor'].queryset = User.objects.all()
+        self.user = user
+        if self.user.is_superuser:
+            self.fields['executor'].queryset = User.objects.all()
+        else:
+            self.fields['executor'].queryset = User.objects.filter(id=self.user.id)
 
