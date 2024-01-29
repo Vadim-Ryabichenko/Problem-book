@@ -1,9 +1,15 @@
-from .views import MainView, AboutView, TaskCardListView, TaskCardDetailView, TaskCardCreateView, TaskCardUpdateView, TaskCardDeleteView, UpperStatusTaskCardView, LowerStatusTaskCardView, SetExecutorView
-from django.urls import path
+from .views import MainView, AboutView, TaskCardListView, TaskCardDetailView, TaskCardCreateView, TaskCardUpdateView, TaskCardDeleteView, UpperStatusTaskCardView, LowerStatusTaskCardView, SetExecutorView, TaskCardModelViewSet
+from django.urls import path, include
+from rest_framework import routers
 
+
+
+router = routers.SimpleRouter()
+router.register('tasks', TaskCardModelViewSet)
 
 
 urlpatterns = [
+    path('api/', include(router.urls)),
     path('', MainView.as_view(), name = 'mainpage'),
     path('about/', AboutView.as_view(), name = 'aboutpage'),
     path('tasklist/', TaskCardListView.as_view(), name = 'tasks'),

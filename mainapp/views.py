@@ -4,6 +4,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import TaskCardForm, SetExecutorForm
 from django.urls import reverse
+from .serializers import TaskCardSerializer
+from rest_framework.viewsets import ModelViewSet
+from mainapp.permissions import TaskCardPermission
+from rest_framework.authtoken.models import Token
 
 
 
@@ -113,3 +117,10 @@ class SetExecutorView(View):
             form.save()
             return redirect('task_detail', pk=task.pk)
         return render(request, self.template_name, {'form': form, 'task': task})
+
+
+class TaskCardModelViewSet(ModelViewSet):
+    queryset = TaskCard.objects.all()
+    serializer_class = TaskCardSerializer
+    permission_classes = [TaskCardPermission]
+

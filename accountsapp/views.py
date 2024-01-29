@@ -3,6 +3,12 @@ from django.contrib.auth.views import LoginView, LogoutView
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView, TemplateView
 from django.urls import reverse_lazy
+from rest_framework.viewsets import ModelViewSet
+from django.contrib.auth.models import User
+from .serializers import UserSerializer
+from rest_framework.authtoken.views import ObtainAuthToken
+from rest_framework.authtoken.models import Token
+from rest_framework.response import Response
 
 
 
@@ -33,3 +39,19 @@ class Logout(LoginRequiredMixin, LogoutView):
     success_url = reverse_lazy('login_page')
 
 
+class UserModelViewSet(ModelViewSet):
+    queryset = User.objects.all()
+    serializer_class = UserSerializer
+
+
+class ProblemBookAuthToken(ObtainAuthToken):
+    def post(self, request, *args, **kwargs):
+        serializer = self.serializer_class(data=request.data, context={'request': request})
+        serializer.is_valid(raise_exception=True)
+        user = serializer.validated_data['user']
+        token, created = Token.objects.get_or_create(user=user)
+        token.save()
+        return Response({
+            'attention': f'{user.username} with user_id number {user.pk}, your access token has been created',
+            'token': token.key,
+        })
