@@ -4,10 +4,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import get_object_or_404, render, redirect
 from .forms import TaskCardForm, SetExecutorForm
 from django.urls import reverse
-from .serializers import TaskCardSerializer
+from .serializers import TaskCardSerializer, TaskCardSerializerForFilter
 from rest_framework.viewsets import ModelViewSet
 from mainapp.permissions import TaskCardPermission
-from rest_framework.authtoken.models import Token
+from rest_framework.filters import SearchFilter
 
 
 
@@ -123,4 +123,11 @@ class TaskCardModelViewSet(ModelViewSet):
     queryset = TaskCard.objects.all()
     serializer_class = TaskCardSerializer
     permission_classes = [TaskCardPermission]
+    filter_backends = [SearchFilter]
+    search_fields = ['status']
+
+    def get_serializer_class(self):
+        if 'search' in self.request.query_params:
+            return TaskCardSerializerForFilter
+        return TaskCardSerializer
 

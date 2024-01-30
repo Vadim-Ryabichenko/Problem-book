@@ -141,5 +141,6 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': [
         'rest_framework.authentication.BasicAuthentication',
         'accountsapp.authentication.ProblemBookTokenAuthentication',
-    ]
+    ],
+    'DEFAULT_FILTER_BACKENDS': ['rest_framework.filters.SearchFilter']
 }

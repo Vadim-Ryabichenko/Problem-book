@@ -7,7 +7,7 @@ from django.contrib.auth.models import User
 class TaskCardSerializer(serializers.ModelSerializer):
     class Meta:
         model = TaskCard
-        fields = ('id', 'text', 'status', 'creator', 'executor')
+        fields = ('id', 'text', 'status', 'creator', 'executor', 'create_at')
 
     def create(self, validated_data):
         return TaskCard.objects.create(text=validated_data['text'], creator=self.context['request'].user)
@@ -16,6 +16,7 @@ class TaskCardSerializer(serializers.ModelSerializer):
         if 'text' in validated_data:
             if self.context['request'].user.is_superuser or self.context['request'].user == instance.creator:
                 instance.text = validated_data['text']
+            else: raise serializers.ValidationError("Ne baluisya")
         if 'status' in validated_data:
             if self.context['request'].user == instance.executor:
                 allowed_transitions = {
@@ -29,13 +30,14 @@ class TaskCardSerializer(serializers.ModelSerializer):
             'Ready': ['Done'],
             'Done': ['Ready']
         }
-        current_status = instance.status
-        new_status = validated_data['status']
-        if current_status in allowed_transitions:
-            if new_status in allowed_transitions[current_status]:
-                instance.status = new_status
-            else:
-                raise serializers.ValidationError("There is no such option to switch between statuses")
+            else: raise serializers.ValidationError("Ne baluisya")
+            current_status = instance.status
+            new_status = validated_data['status']
+            if current_status in allowed_transitions:
+                if new_status in allowed_transitions[current_status]:
+                    instance.status = new_status
+                else:
+                    raise serializers.ValidationError("There is no such option to switch between statuses")
         if 'executor' in validated_data:
             if self.context['request'].user == instance.creator:
                 if validated_data['executor'] == self.context['request'].user:
@@ -49,3 +51,9 @@ class TaskCardSerializer(serializers.ModelSerializer):
                     instance.executor = validated_data['executor']
         instance.save()
         return instance
+    
+
+class TaskCardSerializerForFilter(serializers.ModelSerializer):
+    class Meta:
+        model = TaskCard
+        fields = ('id', 'creator', 'executor', 'update_at')
