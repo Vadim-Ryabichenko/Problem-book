@@ -86,6 +86,9 @@ DATABASES = {
         'PASSWORD': 'myfpass',
         'HOST': 'localhost',
         'PORT': '5432',
+        'TEST': {
+            'NAME': 'mytestingdb',
+        },
     }
 }
 
