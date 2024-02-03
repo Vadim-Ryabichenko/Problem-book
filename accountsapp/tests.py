@@ -106,7 +106,6 @@ class UserSerializerTest(TestCase):
         self.assertEqual(user.email, user_data['email'])
         self.assertEqual(user.first_name, user_data['first_name'])
         self.assertEqual(user.last_name, user_data['last_name'])
-        print(user.id)
         self.assertIsNotNone(user.id)
  
 
