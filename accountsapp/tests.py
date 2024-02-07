@@ -7,7 +7,6 @@ from .serializers import UserSerializer
 
 
 
-
 class RegisterViewTest(TestCase):
     def setUp(self):
         self.register_url = reverse('register_page')
@@ -107,6 +106,3 @@ class UserSerializerTest(TestCase):
         self.assertEqual(user.first_name, user_data['first_name'])
         self.assertEqual(user.last_name, user_data['last_name'])
         self.assertIsNotNone(user.id)
- 
-
-
